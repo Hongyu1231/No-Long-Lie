@@ -1,0 +1,4 @@
+../Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_accelero.c:48:24:BSP_ACCELERO_Init	2
+../Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_accelero.c:89:6:BSP_ACCELERO_DeInit	3
+../Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_accelero.c:106:6:BSP_ACCELERO_LowPower	3
+../Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_accelero.c:124:6:BSP_ACCELERO_AccGetXYZ	3

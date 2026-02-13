@@ -1,0 +1,4 @@
+../Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_gyro.c:51:9:BSP_GYRO_Init	2
+../Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_gyro.c:94:6:BSP_GYRO_DeInit	3
+../Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_gyro.c:111:6:BSP_GYRO_LowPower	3
+../Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_gyro.c:127:6:BSP_GYRO_GetXYZ	3

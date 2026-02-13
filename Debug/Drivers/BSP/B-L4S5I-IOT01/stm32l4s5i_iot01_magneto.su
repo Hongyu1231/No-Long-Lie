@@ -1,0 +1,4 @@
+../Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_magneto.c:51:23:BSP_MAGNETO_Init	16	static
+../Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_magneto.c:82:6:BSP_MAGNETO_DeInit	8	static
+../Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_magneto.c:97:6:BSP_MAGNETO_LowPower	16	static
+../Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_magneto.c:114:6:BSP_MAGNETO_GetXYZ	16	static
