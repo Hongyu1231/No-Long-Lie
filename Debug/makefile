@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (11.3.rel1)
+# Toolchain: GNU Tools for STM32 (13.3.rel1)
 ################################################################################
 
 -include ../makefile.init
@@ -68,8 +68,8 @@ all: main-build
 main-build: CG2028_Assignment.elf secondary-outputs
 
 # Tool invocations
-CG2028_Assignment.elf CG2028_Assignment.map: $(OBJS) $(USER_OBJS) /Users/houlinxin/Desktop/TA/CG2028/CG2028workspace/CG2028_Assignment/STM32L4S5VITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "CG2028_Assignment.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/houlinxin/Desktop/TA/CG2028/CG2028workspace/CG2028_Assignment/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CG2028_Assignment.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+CG2028_Assignment.elf CG2028_Assignment.map: $(OBJS) $(USER_OBJS) D:\NUS_Bachelor\Study\Y2S2\CG2028\Lab\workspace\CG2028_Assignment\STM32L4S5VITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "CG2028_Assignment.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\NUS_Bachelor\Study\Y2S2\CG2028\Lab\workspace\CG2028_Assignment\STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CG2028_Assignment.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
