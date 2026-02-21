@@ -128,6 +128,34 @@ uint8_t SPI_WIFI_DataReady(void) {
 }
 // ==================== End of WI-FI Low-Level Bridge Code ====================
 
+void Buzzer_Init(void) {
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    __HAL_RCC_GPIOA_CLK_ENABLE(); // Enable Port A for PA4
+
+    GPIO_InitStruct.Pin = GPIO_PIN_4;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+}
+
+void Buzzer_Test(void) {
+    // OUTER LOOP: This counts the number of beeps
+    for(int beep = 0; beep < 3; beep++) {
+
+        // INNER LOOP: This creates the vibration (the sound)
+        for(int i = 0; i < 500; i++) {
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_4);
+            HAL_Delay(1);
+        }
+
+        // 1. FORCE SILENCE: Turn the pin off so it doesn't stay "High"
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+
+        // 2. GAP: Wait for half a second before the next beep starts
+        HAL_Delay(500);
+    }
+}
 
 int main(void)
 {
@@ -135,6 +163,8 @@ int main(void)
 
 	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
 	HAL_Init();
+
+	Buzzer_Init();
 
 	/* UART initialization  */
 	UART1_Init();
@@ -168,7 +198,7 @@ if (ES_WIFI_Init(&EsWifiObj) == ES_WIFI_STATUS_OK)
     sprintf(buffer, "Wi-Fi Chip Booted! Connecting to Router...\r\n");
 	HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), HAL_MAX_DELAY);
 
-	if (ES_WIFI_Connect(&EsWifiObj, "Your_Hotspot", "Your_Password", ES_WIFI_SEC_WPA_WPA2) == ES_WIFI_STATUS_OK)
+	if (ES_WIFI_Connect(&EsWifiObj, "Hongyu", "12345678", ES_WIFI_SEC_WPA_WPA2) == ES_WIFI_STATUS_OK)
 	{
 	    ES_WIFI_GetNetworkSettings(&EsWifiObj);
 	    sprintf(buffer, "Wi-Fi Connected! My IP is %d.%d.%d.%d\r\n\n",
@@ -370,6 +400,7 @@ if (ES_WIFI_Init(&EsWifiObj) == ES_WIFI_STATUS_OK)
 						delay_ms = 50;
 						sprintf(buffer, "!!! TRUE FALL !!! Acc:%.1f, dP:%.3f\r\n", accel_sq, pressure_diff);
 						HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), HAL_MAX_DELAY);
+						Buzzer_Test();
 
 						// Define the connection configuration object
 						ES_WIFI_Conn_t udp_conn;
