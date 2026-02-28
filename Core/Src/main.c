@@ -41,12 +41,11 @@ int buzzer_on = 0;
 
 void Buzzer_On(void)
 {
-   buzzer_on = 1;   // 高电平 = 响
-    // 如果你的蜂鸣器是低电平触发，就改成：
+   buzzer_on = 1;
     // HAL_GPIO_WritePin(BUZZER_PORT, BUZZER_PIN, GPIO_PIN_RESET);
 }
 
-/*--------------------------- 蜂鸣器关 ---------------------------------------*/
+// Turn off the buzzer
 void Buzzer_Off(void)
 {
     buzzer_on = 0;
@@ -61,7 +60,7 @@ void B2_Init(void)
 
     GPIO_InitStruct.Pin = GPIO_PIN_13;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;  // 内部上拉，按下时读到0
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 }
@@ -69,6 +68,10 @@ void B2_Init(void)
 int IsB2Pressed(void)
 {
     return (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET);
+}
+
+void LED_Init(void) {
+    BSP_LED_Init(LED2);
 }
 
 
@@ -79,10 +82,12 @@ int main(void)
     UART1_Init();
     Buzzer_Init();
     B2_Init();
+    LED_Init();
 
     /* Peripheral initializations */
     BSP_ACCELERO_Init();
-    BSP_GYRO_Init();     // Initialize the Gyroscope
+    BSP_GYRO_Init();
+    BSP_PSENSOR_Init();// Initialize the Gyroscope
 
     int accel_buff_x[4] = {0};
     int accel_buff_y[4] = {0};
@@ -91,6 +96,7 @@ int main(void)
     char buffer[100];
 
     static int low_g_count = 0;
+    static float baseline_pressure = 0.0f;
 
     while (1)
     {
@@ -122,9 +128,11 @@ int main(void)
 
         float gyro_sq = (gyro_vel[0] * gyro_vel[0]) + (gyro_vel[1] * gyro_vel[1]) + (gyro_vel[2] * gyro_vel[2]);
 
+        float current_pressure = BSP_PSENSOR_ReadPressure();
+
         // 3. Print values for monitoring
-        sprintf(buffer, "ACCEL_SQ: %.2f | GYRO_SQ: %.2f\r\n", accel_sq, gyro_sq);
-        HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), HAL_MAX_DELAY);
+//        sprintf(buffer, "ACCEL_SQ: %.2f | GYRO_SQ: %.2f | Pressure: %.2f\r\n", accel_sq, gyro_sq, current_pressure);
+//        HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), HAL_MAX_DELAY);
 
         // --- 4. Fall Detection Logic ---
         if (accel_sq < 15.0f) {
@@ -133,10 +141,12 @@ int main(void)
             low_g_count = 0;
         }
 
+        float dP = current_pressure - baseline_pressure;
+
         // Check if both sustained low-G (weightlessness) and high rotation occurred
-        if (low_g_count >= 3 && gyro_sq > 500000.0f) {
+        if (low_g_count >= 3 && (gyro_sq > 500000.0f || dP > 0.15f)) {
             low_g_count = 0;
-            sprintf(buffer, "!!! FALL DETECTED (G-Drop + Tumble) !!!\r\n");
+            sprintf(buffer, "!!! FALL DETECTED!!!\r\n");
             HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), HAL_MAX_DELAY);
             Buzzer_On();
         }
@@ -148,7 +158,14 @@ int main(void)
 
         if (buzzer_on) {
             HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_4);
+            BSP_LED_Toggle(LED2);
             for (volatile int j = 0; j < 500; j++);
+        } else {
+        	static int tick = 0;
+        	if (++tick >= 10) {
+        	    BSP_LED_Toggle(LED2);
+        	    tick = 0;
+        	}
         }
 
         i++;
