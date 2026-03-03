@@ -1,0 +1,15 @@
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:72:6:SPI_WIFI_MspInit	1
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:144:8:SPI_WIFI_Init	3
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:200:8:SPI_WIFI_ResetModule	11
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:242:8:SPI_WIFI_DeInit	1
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:264:12:wait_cmddata_rdy_high	3
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:278:12:wait_cmddata_rdy_rising_event	3
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:296:12:wait_spi_rx_event	3
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:314:12:wait_spi_tx_event	3
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:332:9:SPI_WIFI_ReceiveData	7
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:392:9:SPI_WIFI_SendData	6
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:440:6:SPI_WIFI_Delay	1
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:450:6:SPI_WIFI_DelayUs	5
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:482:6:HAL_SPI_RxCpltCallback	2
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:497:6:HAL_SPI_TxCpltCallback	2
+../Drivers/BSP/Components/es_wifi/es_wifi_io.c:512:9:SPI_WIFI_ISR	2

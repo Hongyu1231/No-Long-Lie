@@ -225,4 +225,6 @@ void Error_Handler(void);
 }
 #endif
 
+extern  SPI_HandleTypeDef hspi;
+
 #endif /* __MAIN_H */

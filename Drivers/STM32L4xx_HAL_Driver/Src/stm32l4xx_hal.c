@@ -746,7 +746,6 @@ void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void)
 {
   CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_BOOSTEN);
 }
-
 /**
   * @}
   */

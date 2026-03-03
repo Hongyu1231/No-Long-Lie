@@ -1,3 +1,4 @@
+"./Core/Src/flash_l4.o"
 "./Core/Src/main.o"
 "./Core/Src/mov_avg.o"
 "./Core/Src/stm32l4xx_hal_msp.o"
@@ -14,6 +15,8 @@
 "./Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_psensor.o"
 "./Drivers/BSP/B-L4S5I-IOT01/stm32l4s5i_iot01_tsensor.o"
 "./Drivers/BSP/Components/es_wifi/es_wifi.o"
+"./Drivers/BSP/Components/es_wifi/es_wifi_io.o"
+"./Drivers/BSP/Components/es_wifi/wifi.o"
 "./Drivers/BSP/Components/hts221/hts221.o"
 "./Drivers/BSP/Components/lis3mdl/lis3mdl.o"
 "./Drivers/BSP/Components/lps22hb/lps22hb.o"

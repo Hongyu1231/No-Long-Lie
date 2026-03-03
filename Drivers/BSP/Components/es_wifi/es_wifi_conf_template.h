@@ -16,8 +16,8 @@
   ******************************************************************************
   */
 
-#ifndef ES_WIFI_CONF_H
-#define ES_WIFI_CONF_H
+#ifndef __ES_WIFI_CONF_H
+#define __ES_WIFI_CONF_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -27,25 +27,26 @@
 
 #ifdef WIFI_USE_CMSIS_OS
 #include "cmsis_os.h"
-
 extern osMutexId es_wifi_mutex;
 
 #define LOCK_SPI()              osMutexWait(spi_mutex, 0)
 #define UNLOCK_SPI()            osMutexRelease(spi_mutex)
+
 #define LOCK_WIFI()             osMutexWait(es_wifi_mutex, 0)
 #define UNLOCK_WIFI()           osMutexRelease(es_wifi_mutex)
+
 #define SEM_SIGNAL(a)           osSemaphoreRelease(a)
 #define SEM_WAIT(a,timeout)     osSemaphoreWait(a,timeout)
-#define SPI_INTERFACE_PRIO              configMAX_SYSCALL_INTERRUPT_PRIORITY
+
 #else
 
-#define LOCK_WIFI()
-#define UNLOCK_WIFI()
 #define LOCK_SPI()
+#define LOCK_WIFI()
 #define UNLOCK_SPI()
-#define SEM_SIGNAL(a)
-#define SPI_INTERFACE_PRIO              0
+#define UNLOCK_WIFI()
+#define SEM_SIGNAL(a)  
 #endif
+   
 
 #define ES_WIFI_MAX_SSID_NAME_SIZE                  32
 #define ES_WIFI_MAX_PSWD_NAME_SIZE                  32
@@ -56,23 +57,22 @@ extern osMutexId es_wifi_mutex;
 #define ES_WIFI_STACK_REV_SIZE                      16
 #define ES_WIFI_RTOS_REV_SIZE                       16
 
-#define ES_WIFI_DATA_SIZE                           2000  /*Increased from 1400 to fit scan result.*/
+#define ES_WIFI_DATA_SIZE                           1400
 #define ES_WIFI_MAX_DETECTED_AP                     10
    
-#define ES_WIFI_TIMEOUT                             30000
+#define ES_WIFI_TIMEOUT                             0xFFFF
                                                     
 #define ES_WIFI_USE_PING                            1
 #define ES_WIFI_USE_AWS                             0
 #define ES_WIFI_USE_FIRMWAREUPDATE                  0
 #define ES_WIFI_USE_WPS                             0
                                                     
-#define ES_WIFI_USE_SPI                             1  
-#define ES_WIFI_USE_UART                            (!ES_WIFI_USE_SPI)
+#define ES_WIFI_USE_SPI                             0    
+#define ES_WIFI_USE_UART                            (!ES_WIFI_USE_SPI)   
    
 
 
 #ifdef __cplusplus
 }
 #endif
-#endif /* ES_WIFI_CONF_H */
-
+#endif /*__ES_WIFI_CONF_H*/
